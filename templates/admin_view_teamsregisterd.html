@@ -1,0 +1,33 @@
+{% include 'adminheader.html' %}
+
+<center>
+    <div class="img-div"></div>
+    <h3>View Registered teams</h3>
+    <form action="" method="post">
+    <table class="table table-striped tbl-new bg-light shadow" style="max-width: 1200px;">
+        <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Team about</th>
+            <th>City</th>
+           
+
+        </tr>
+        {% for row in data['res'] %}
+        <tr>
+            <td>{{ row['team_name'] }}</td>
+            <td>{{ row['phone'] }}</td>
+            <td>{{ row['email'] }}</td>
+            <td>{{ row['team_about'] }}</td>
+            <td>{{ row['city'] }}</td>
+            <td><a href="admin_view_players?tid={{ row['team_id'] }}">View Players</a></td>
+           
+
+        </tr>
+        {% endfor %}
+    </table>
+</form>
+</center>
+
+{% include 'footer.html' %}
