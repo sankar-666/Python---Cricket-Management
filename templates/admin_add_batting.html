@@ -1,0 +1,152 @@
+{% include 'adminheader.html' %}
+<center>
+    <div class="img-div">
+   
+    
+    <h1 class="hd">Add Batting Score</h1>
+    <form action="" method="post" class="form">
+        <table class="table form-group">
+            <tr>
+                <th>Player</th>
+                <td>
+                    <select name="player_id" required class="form-control" id="">
+                        {% for row in data['player'] %}
+                            <option value="{{ row['player_id'] }}">{{ row['fname'] }}{{ row['lname'] }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>Score</th>
+                <td><input type="number" class="form-control" required name="score" id=""></td>
+            </tr>
+            <tr>
+                <th>Balls Faced</th>
+                <td><input type="number" class="form-control" required name="balls_faced" id=""></td>
+            </tr>
+            <tr>
+                <th>Single</th>
+                <td><input type="number" class="form-control" required name="single" id=""></td>
+            </tr>
+            <tr>
+                <th>Double</th>
+                <td><input type="number" class="form-control" required name="double" id=""></td>
+            </tr>
+            <tr>
+                <th>Triple</th>
+                <td><input type="number" class="form-control" required name="triple" id=""></td>
+            </tr>
+            <tr>
+                <th>Boundaries</th>
+                <td><input type="number" class="form-control" required name="boundaries" id=""></td>
+            </tr>
+            <tr>
+                <th>Sixes</th>
+                <td><input type="number" class="form-control" required name="six" id=""></td>
+            </tr>
+            <tr>
+                <th>Wicket Taken By</th>
+                <td>
+                    <select name="wicket_player" required class="form-control" id="">
+                        {% for row in data['player'] %}
+                            <option value="{{ row['fname'] }}{{ row['lname'] }}">{{ row['fname'] }}{{ row['lname'] }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+               
+                <td colspan="2" align="center"><input type="submit" class="btn btn-success" name="btn" id=""></td>
+            </tr>
+            </table>
+            </form>
+
+
+</div>
+    <br><br>
+    {% if data['count'] >= 1 %}
+    <h5>Batting score</h5>
+    <table class="table table-striped tbl-new" style="width: 1000px;">
+        <tr>
+            <th>Player</th>
+            <th>Score</th>
+            <th>Balls Faced</th>
+            <th>Single</th>
+            <th>Double</th>
+            <th>Triple</th>
+            <th>Boundaries</th>
+            <th>Sixes</th>
+            <th>Wicket Taken by</th>
+            
+        </tr>
+        {% for row in data['res'] %}
+        <tr>
+            <td>{{ row['mainplayer'] }}</td>
+            <td>{{ row['score'] }}</td>
+            <td>{{ row['balls_faced'] }}</td>
+            <td>{{ row['single'] }}</td>
+            <td>{{ row['double'] }}</td>
+            <td>{{ row['triple'] }}</td>
+            <td>{{ row['boundaries'] }}</td>
+            <td>{{ row['sixes'] }}</td>
+            <td>{{ row['wicket_taken_by'] }}</td>
+            
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</center>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+<script>
+    $(function() {
+        $("input[name='place']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+        $("input[name='lname']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+        // $("input[name='dob']").on('input', function(e) {
+        //     $(this).val($(this).val().replace(/[^0-9/]/g, ''));
+
+        // });
+        
+        $("input[name='phone']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9]/g, ''));
+            
+        });
+        $("input[name='pin']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9]/g, ''));
+            
+        });
+        $("input[name='email']").on('input', function(e) {
+              var re = /([A-Z0-9a-z_-][^@])+?@[^$#<>?]+?\.[\w]{1,}/.test(this.value);
+                if(!re) {
+                    $('#eerror').show();
+                } else {
+                    $('#eerror').hide();
+                }
+
+        });
+        $("input[name='address']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z0-9()/. ]/g, ''));
+
+        });
+        $("input[name='place']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+            
+        $("input[name='pwd']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9A-Za-z@/. ]/g, ''));
+            
+        });
+    });
+
+
+</script>
+
+{% include 'footer.html' %}

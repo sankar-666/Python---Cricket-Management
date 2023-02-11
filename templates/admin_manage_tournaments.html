@@ -1,0 +1,146 @@
+{% include 'adminheader.html' %}
+<center>
+    <div class="img-div">
+    {% if data['raw'] %}
+
+    
+    <h1 class="hd">Update Tournament</h1>
+    <form action="" method="post" class="form">
+        <table class="table form-group">
+            <tr>
+                <th>Name</th>
+                <td><input type="text" value="{{ data['raw'][0]['name'] }}" class="form-control" required name="name" id=""></td>
+            </tr>
+            <tr>
+                <th>Venue</th>
+                <td><input type="text" value="{{ data['raw'][0]['venue'] }}" class="form-control" required name="venue" id=""></td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td><input type="date" value="{{ data['raw'][0]['date'] }}" class="form-control" required name="date" id=""></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td><input type="text" value="{{ data['raw'][0]['description'] }}" class="form-control" required name="des" id=""></td>
+            </tr>
+
+            <tr>
+               
+                <td colspan="2" align="center"><input type="submit" value="Update" class="btn btn-success" name="update" id=""></td>
+            </tr>
+            </table>
+            </form>
+    
+
+    {% else %}
+    
+    <h1 class="hd">Manage Tournament</h1>
+    <form action="" method="post" class="form">
+        <table class="table form-group">
+            <tr>
+                <th>Name</th>
+                <td><input type="text" class="form-control" required name="name" id=""></td>
+            </tr>
+            <tr>
+                <th>Venue</th>
+                <td><input type="text" class="form-control" required name="venue" id=""></td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td><input type="date" class="form-control" required name="date" id=""></td>
+            </tr>
+            <tr>
+                <th>description</th>
+                <td><input type="text" class="form-control" required name="des" id=""></td>
+            </tr>
+            <tr>
+               
+                <td colspan="2" align="center"><input type="submit" class="btn btn-success" name="btn" id=""></td>
+            </tr>
+            </table>
+            </form>
+
+    {% endif %}
+</div>
+    <br><br>
+    {% if data['count'] >= 1 %}
+    <h5>View Available Tournaments</h5>
+    <table class="table table-striped tbl-new" style="width: 1000px;">
+        <tr>
+            <th>index</th>
+            <th>Name</th>
+            <th>Venue</th>
+            <th>Date</th>
+            <th>Description</th>
+            
+        </tr>
+        {% for row in data['res'] %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ row['name'] }}</td>
+            <td>{{ row['venue'] }}</td>
+            <td>{{ row['date'] }}</td>
+            <td>{{ row['description'] }}</td>
+            
+            <td><a class="btn btn-info" href="?action=update&tid={{ row['tournament_id'] }}">Update</a></td>
+            <td><a class="btn btn-danger" onclick="return confirm('Are You Sure!')" href="?action=delete&tid={{ row['tournament_id'] }}">Delete</a></td>
+            <td><a class="btn btn-primary" href="admin_manage_matches?tid={{ row['tournament_id'] }}">Manage Matches</a></td>
+                   </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</center>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+<script>
+    $(function() {
+        $("input[name='place']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+        $("input[name='lname']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+        // $("input[name='dob']").on('input', function(e) {
+        //     $(this).val($(this).val().replace(/[^0-9/]/g, ''));
+
+        // });
+        
+        $("input[name='phone']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9]/g, ''));
+            
+        });
+        $("input[name='pin']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9]/g, ''));
+            
+        });
+        $("input[name='email']").on('input', function(e) {
+              var re = /([A-Z0-9a-z_-][^@])+?@[^$#<>?]+?\.[\w]{1,}/.test(this.value);
+                if(!re) {
+                    $('#eerror').show();
+                } else {
+                    $('#eerror').hide();
+                }
+
+        });
+        $("input[name='address']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z0-9()/. ]/g, ''));
+
+        });
+        $("input[name='place']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+            
+        $("input[name='pwd']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9A-Za-z@/. ]/g, ''));
+            
+        });
+    });
+
+
+</script>
+
+{% include 'footer.html' %}

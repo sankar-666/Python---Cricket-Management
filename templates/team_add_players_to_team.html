@@ -1,0 +1,105 @@
+{% include 'teamheader.html' %}
+<center>
+    <div class="img-div">
+   
+    
+    <h1 class="hd">Manage Playes</h1>
+    <form action="" method="post" class="form" enctype="multipart/form-data">
+        <table class="table form-group">
+            <tr>
+                <th>Select Player</th>
+                <td>
+                    <select name="player_id" required class="form-control" id="">
+                        {% for row in data['player'] %}
+                            <option value="{{ row['player_id'] }}">{{ row['fname'] }}{{ row['lname'] }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            
+            <tr>
+               
+                <td colspan="2" align="center"><input type="submit" class="btn btn-success" name="btn" id="btn"></td>
+            </tr>
+            </table>
+            </form>
+
+
+</div>
+    <br><br>
+    {% if data['count'] >= 1 %}
+    <h5>View PLayers</h5>
+    <table class="table table-striped tbl-new" style="width: 1000px;">
+        <tr>
+            <th>index</th>
+            <th>Player</th>
+           
+            
+        </tr>
+        {% for row in data['res'] %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ row['fname'] }} {{ row['lname'] }}</td>
+           
+            <td><a class="btn btn-danger" onclick="return confirm('Are You Sure!')" href="?action=delete&p11_id={{ row['playing_id'] }}&mid={{ mid }}">Delete</a></td>
+                   </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</center>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+<script>
+    $(function() {
+        $("input[name='fname']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+        $("input[name='lname']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+        // $("input[name='dob']").on('input', function(e) {
+        //     $(this).val($(this).val().replace(/[^0-9/]/g, ''));
+
+        // });
+        
+        $("input[name='phone']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9]/g, ''));
+            
+        });
+        $("input[name='pin']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9]/g, ''));
+            
+        });
+        $("input[name='email']").on('input', function(e) {
+              var re = /([A-Z0-9a-z_-][^@])+?@[^$#<>?]+?\.[\w]{1,}/.test(this.value);
+                if(!re) {
+                    $('#eerror').show();
+                    $('#btn').prop('disabled', true);
+                } else {
+                    $('#eerror').hide();
+                    $('#btn').prop('disabled', false);
+                }
+
+        });
+        $("input[name='address']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z0-9()/. ]/g, ''));
+
+        });
+        $("input[name='place']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+            
+        $("input[name='pwd']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9A-Za-z@/. ]/g, ''));
+            
+        });
+    });
+
+
+</script>
+
+{% include 'footer.html' %}

@@ -1,0 +1,75 @@
+{% include 'adminheader.html' %}
+<center>
+   
+    <br><br>
+
+    <h5>View  Matches</h5>
+    <table class="table table-striped tbl-new" style="width: 1000px;">
+
+        {% for row in data['res'] %}
+        <tr>
+            <td>You Have Match on <span style="margin: 0px 5px;color: red;">{{ row['date'] }}</span> at <span style="margin: 0px 5px;color: red;">{{ row['time'] }}</span></td>
+            <td><a class="btn btn-success" href="team_view_opponentteam">View Opponent team</a></td>
+            <td><a class="btn btn-primary" href="team_add_players_to_team?mid={{ row['matches_id'] }}">Add Players</a></td>
+            <!-- <td>{{ row['match_status'] }}</td> -->
+      
+         
+                   </tr>
+        {% endfor %}
+    </table>
+
+</center>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+<script>
+    $(function() {
+        $("input[name='place']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+        $("input[name='lname']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+        // $("input[name='dob']").on('input', function(e) {
+        //     $(this).val($(this).val().replace(/[^0-9/]/g, ''));
+
+        // });
+        
+        $("input[name='phone']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9]/g, ''));
+            
+        });
+        $("input[name='pin']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9]/g, ''));
+            
+        });
+        $("input[name='email']").on('input', function(e) {
+              var re = /([A-Z0-9a-z_-][^@])+?@[^$#<>?]+?\.[\w]{1,}/.test(this.value);
+                if(!re) {
+                    $('#eerror').show();
+                } else {
+                    $('#eerror').hide();
+                }
+
+        });
+        $("input[name='address']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z0-9()/. ]/g, ''));
+
+        });
+        $("input[name='place']").on('input', function(e) {
+            $(this).val($(this).val().replace(/[^A-Za-z ]/g, ''));
+
+        });
+            
+        $("input[name='pwd']").on('input', function(e) {
+        	$(this).val($(this).val().replace(/[^0-9A-Za-z@/. ]/g, ''));
+            
+        });
+    });
+
+
+</script>
+
+{% include 'footer.html' %}

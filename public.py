@@ -55,15 +55,14 @@ def login():
 
 
 
-@public.route("/doctorreg",methods=['get','post'])
-def doctorreg():
+@public.route("/reg",methods=['get','post'])
+def reg():
     if 'btn' in request.form:
-        fname=request.form['fname']
-        lname=request.form['lname']
-        place=request.form['place']
+        name=request.form['name']
         phone=request.form['phone']
         email=request.form['email']
-        qual=request.form['qual']
+        teamabout=request.form['teamabout']
+        city=request.form['city']
         pwd=request.form['pwd']
         uname=request.form['uname']
       
@@ -73,11 +72,10 @@ def doctorreg():
         if res:
             flash("This Username already exist!, try register with new one.")
         else:
-            q="insert into login values(null,'%s','%s','doctor')"%(uname,pwd)
+            q="insert into login values(null,'%s','%s','team')"%(uname,pwd)
             lid=insert(q)
-            q="insert into doctor values (NULL,'%s','%s','%s','%s','%s','%s','%s')"%(lid,fname,lname,place,phone,email,qual)
-            # print(q)
+            q="insert into team values (NULL,'%s','%s','%s','%s','%s','%s')"%(lid,name,phone,email,teamabout,city)
             insert(q)
             flash("Registration successfull")
             return redirect(url_for("public.login"))
-    return render_template("doctorreg.html")
+    return render_template("reg.html")
