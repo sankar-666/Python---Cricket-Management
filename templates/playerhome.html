@@ -1,0 +1,9 @@
+{% include 'playerheader.html' %}
+
+<center>
+    {% for row in data['res'] %}
+    <h1>Welcome <span style="margin: 0% 10px;">{{ row['fname'] }} {{ row['lname'] }}</span></h1>
+    {% endfor %}
+</center>
+
+{% include 'footer.html' %}

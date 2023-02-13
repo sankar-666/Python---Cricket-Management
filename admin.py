@@ -141,7 +141,7 @@ def admin_add_batting():
     data={}
     mid=request.args['mid']
 
-    q="select * from player"
+    q="select * from player "
     data['player']=select(q)
     
     if 'btn' in request.form:
@@ -154,10 +154,37 @@ def admin_add_batting():
         boundaries=request.form['boundaries']
         six=request.form['six']
         wicket_player=request.form['wicket_player']
-       
-        q="insert into batting values (null,'%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')"%(mid,player_id,score,balls_faced,single,double,triple,boundaries,six,wicket_player)
-        insert(q)
-        flash("Successfully Added")
+        if wicket_player != 'Not Out':
+            q="select * from batting where match_id='%s' and player_id='%s'"%(mid,player_id)
+            res=select(q)
+            if res:
+                q="select * from batting where match_id='%s' and player_id='%s' and wicket_taken_by='Not Out'"%(mid,player_id)
+                print(q)
+                val=select(q)
+                if val:
+                    q="update batting set score='%s', balls_faced='%s', single='%s',`double`='%s', triple='%s', boundaries='%s', sixes='%s',wicket_taken_by='%s'  where match_id='%s' and player_id='%s'"%(score,balls_faced,single,double,triple,boundaries,six,wicket_player,mid,player_id)
+                    update(q)
+                    flash("Successfully Added")
+                else:
+                    flash("Cant Update Scores for Players whose wicket is Gone!")
+            else: 
+                q="insert into batting values (null,'%s','%s','%s','%s','%s','%s','%s','%s','%s','Not Out')"%(mid,player_id,score,balls_faced,single,double,triple,boundaries,six)
+                insert(q)
+                flash("Successfully Added")
+        else:
+
+            
+            q="select * from batting where match_id='%s' and player_id='%s'"%(mid,player_id)
+            res2=select(q)
+            if res2:
+                q="update batting set score='%s', balls_faced='%s', single='%s',`double`='%s', triple='%s', boundaries='%s', sixes='%s' where match_id='%s' and player_id='%s'"%(score,balls_faced,single,double,triple,boundaries,six,mid,player_id)
+                update(q)
+                flash("Successfully Added")
+            else:
+                q="insert into batting values (null,'%s','%s','%s','%s','%s','%s','%s','%s','%s','Not Out')"%(mid,player_id,score,balls_faced,single,double,triple,boundaries,six)
+                insert(q)
+                flash("Successfully Added")
+            
         return redirect(url_for("admin.admin_add_batting",mid=mid))
 
     q="SELECT *,CONCAT(t1.fname,'',t1.lname) AS mainplayer,CONCAT(t2.fname,'',t2.lname) AS wicketplayer FROM batting b ,player t1, player t2 WHERE b.player_id=t1.player_id and match_id='%s' group by batting_id"%(mid)
@@ -182,10 +209,16 @@ def admin_add_bowling():
         overs=request.form['overs']
         wtaken=request.form['wtaken']
         runs=request.form['runs']
-      
-       
-        q="insert into bowling values (null,'%s','%s','%s','%s','%s')"%(mid,player_id,overs,wtaken,runs)
-        insert(q)
+        
+        
+        q="select * from bowling where match_id='%s' and player_id='%s'"%(mid,player_id)
+        res=select(q)
+        if res:
+            q="update bowling set overs_bowled='%s', wickets_taken='%s', runs_conceded='%s' where match_id='%s' and player_id='%s'"%(overs,wtaken,runs,mid,player_id)
+            update(q)
+        else:
+            q="insert into bowling values (null,'%s','%s','%s','%s','%s')"%(mid,player_id,overs,wtaken,runs)
+            insert(q)
         flash("Successfully Added")
         return redirect(url_for("admin.admin_add_bowling",mid=mid))
 

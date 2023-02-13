@@ -47,7 +47,8 @@
             <tr>
                 <th>Wicket Taken By</th>
                 <td>
-                    <select name="wicket_player" required class="form-control" id="">
+                    <select name="wicket_player"  class="form-control" id="">
+                        <option value="Not Out">-- Select Player--</option>
                         {% for row in data['player'] %}
                             <option value="{{ row['fname'] }}{{ row['lname'] }}">{{ row['fname'] }}{{ row['lname'] }}</option>
                         {% endfor %}

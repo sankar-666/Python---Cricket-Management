@@ -1,0 +1,26 @@
+{% include 'playerheader.html' %}
+<center>
+   
+    <br><br>
+
+    <h5>Your Latest Updates</h5>
+    <table class="table table-striped tbl-new" style="min-width: 300px;">
+        <tr>
+            <th>index</th>
+            <th>Updates</th>
+            <th>Date and Time</th>
+        </tr>
+        {% for row in data['res'] %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ row['update_desc'] }}</td>
+            <td>{{ row['date_time'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</center>
+
+
+
+{% include 'footer.html' %}
