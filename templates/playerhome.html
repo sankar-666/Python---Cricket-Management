@@ -2,7 +2,9 @@
 
 <center>
     {% for row in data['res'] %}
+     <div style="display: grid;place-items: center;height: 90vh;">
     <h1>Welcome <span style="margin: 0% 10px;">{{ row['fname'] }} {{ row['lname'] }}</span></h1>
+    </div>
     {% endfor %}
 </center>
 

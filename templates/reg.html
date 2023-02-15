@@ -1,12 +1,16 @@
 {% include 'publicheader.html' %}
 
-
+<style>
+    tr,td,th{
+        border: none !important;
+    }
+</style>
 
 <center>
     <div style="margin: 100px auto;">
-        <form action="" method="post">
+        <form action="" method="post" style="width: 500px;">
             <h1>Team Registration</h1>
-            <table>
+            <table class="table">
                 <tr>
                     <th>Name</th>
                     <td><input type="text" required class="form-control" name="name" id=""></td>

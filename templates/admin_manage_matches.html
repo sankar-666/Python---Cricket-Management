@@ -4,12 +4,12 @@
     
     
     <h1 class="hd">Manage Matches</h1>
-    <form action="" method="post" class="form">
-        <table class="table form-group">
+    <form action="" method="post" class="form" style="width: 500px;margin: 100px auto 10px auto;">
+        <table class="table form-group" style="color: aliceblue;">
             <tr>
                 <th>First Team</th>
                 <td>
-                    <select name="fid" id="">
+                    <select name="fid" id="" class="form-control">
                         {% for row in data['team'] %}
                         <option value="{{ row['team_id'] }}">{{ row['team_name'] }}</option>
                         {% endfor %}
@@ -19,7 +19,7 @@
             <tr>
                 <th>Second Team</th>
                 <td>
-                    <select name="sid" id="">
+                    <select name="sid" id="" class="form-control">
                         {% for row in data['team'] %}
                         <option value="{{ row['team_id'] }}">{{ row['team_name'] }}</option>
                         {% endfor %}
@@ -45,14 +45,14 @@
     <br><br>
     {% if data['count'] >= 1 %}
     <h5>View  Matches</h5>
-    <table class="table table-striped tbl-new" style="width: 1000px;">
+    <table class="table table-striped tbl-new" style="min-width: 1000px;">
         <tr>
             <th>index</th>
             <th>First Team</th>
             <th>Second Team</th>
             <th>Date</th>
             <th>Time</th>
-            <th>Status</th>
+         
             
         </tr>
         {% for row in data['res'] %}
@@ -62,13 +62,17 @@
             <td>{{ row['t2name'] }}</td>
             <td>{{ row['date'] }}</td>
             <td>{{ row['time'] }}</td>
-            <td>{{ row['match_status'] }}</td>
+            
+            {% if row['match_status'] == 'pending'  %}
             
             <td><a class="btn btn-danger" onclick="return confirm('Are You Sure!')" href="?action=delete&mid={{ row['matches_id'] }}&tid={{ tid }}">Delete</a></td>
-            <td><a href="admin_add_batting?mid={{ row['matches_id'] }}">Add Batting Details</a></td>
-            <td><a href="admin_add_bowling?mid={{ row['matches_id'] }}">Add Bowling Details</a></td>
-            <td><a href="admin_add_extras?mid={{ row['matches_id'] }}">Add Extras</a></td>
-         
+            <td><a class="btn btn-primary" href="admin_add_batting?mid={{ row['matches_id'] }}">Add Batting Details</a></td>
+            <td><a class="btn btn-primary" href="admin_add_bowling?mid={{ row['matches_id'] }}">Add Bowling Details</a></td>
+            <td><a class="btn btn-primary" href="admin_add_extras?mid={{ row['matches_id'] }}">Add Extras</a></td>
+            <td><a class="btn btn-primary" href="admin_final_result?mid={{ row['matches_id'] }}&t1={{ row['t1name'] }}&t2={{ row['t2name'] }}">Publish Final Result</a></td>
+            {% else %}
+            <td>{{ row['match_status'] }}</td>
+            {% endif %}
                    </tr>
         {% endfor %}
     </table>

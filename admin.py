@@ -254,3 +254,35 @@ def admin_add_extras():
     data['count']=len(select(q))
 
     return render_template("admin_add_extras.html",data=data)
+
+
+
+@admin.route('/admin_final_result',methods=['get','post'])
+def admin_final_result():
+    data={}
+    q="select * from player"
+    data['player']=select(q)
+    mid=request.args['mid']
+    t1=request.args['t1']
+    t2=request.args['t2']
+
+    if 'btn' in request.form:
+        fscore=request.form['fscore']
+        fwicket=request.form['fwicket']
+        fteam_batted=request.form['fteam_batted']
+        sscore=request.form['sscore']
+        swicket=request.form['swicket']
+        steam_batted=request.form['steam_batted']
+        winning_team=request.form['winning_team']
+        q="select * from team where team_name='%s'"%(winning_team)
+        winning_id=select(q)[0]['team_id']
+        man=request.form['man']
+
+        q="insert into match_summary values (null,'%s','%s','%s','%s','%s','%s','%s','%s','%s')"%(mid,fscore,fwicket,fteam_batted,sscore,swicket,steam_batted,winning_id,man)
+        insert(q)
+        q="update matches set match_status='Match Completed' where matches_id='%s'"%(mid)
+        update(q)
+        flash("Result Updated Successfully!")
+        return redirect(url_for("admin.adminhome"))
+    
+    return render_template('admin_final_result.html',data=data,t1=t1,t2=t2)

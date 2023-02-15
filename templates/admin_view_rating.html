@@ -2,13 +2,13 @@
 
 <center>
     <div class="img-div"></div>
-    <h3>View rating of Players</h3>
+    <h3 style="margin: 30px auto;">View rating of Players</h3>
     <form action="" method="post">
     <table class="table table-striped tbl-new bg-light shadow" style="max-width: 1200px;">
 
         {% for row in data['res'] %}
         <tr>
-            <td>Player <img src="/{{ row['photo'] }}" style="width: 30px;height: 30px;border-radius: 50%;" alt=""><span style="color: rgb(16, 91, 16);">{{ row['player'] }}</span> has Revieved a Rating of <span style="color: red;">{{ row['rated_point'] }}</span> by {{ row['username'] }}</td>
+            <td> <img src="/{{ row['photo'] }}" style="width: 30px;height: 30px;border-radius: 50%;" alt=""><span style="color: rgb(16, 91, 16);margin: 0% 8px;">{{ row['player'] }}</span> has Revieved a Rating of <span style="color: red;">{{ row['rated_point'] }}</span> by {{ row['username'] }}</td>
         </tr>
         {% endfor %}
     </table>

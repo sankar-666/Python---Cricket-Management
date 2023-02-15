@@ -39,7 +39,7 @@ def player_view_message():
     return render_template('player_view_message.html',data=data)
 
 
-@player.route('/player_chat')
+@player.route('/player_chat',methods=['get','post'])
 def player_chat():
     data={}
     uid=session['loginid']
@@ -49,10 +49,10 @@ def player_chat():
     
         q="insert into chat values(NULL,'%s','%s','%s',now())"%(uid,did,name)
         insert(q)
-        return redirect(url_for("doctor.doctorchat",did=did))
+        return redirect(url_for("player.player_chat",did=did))
     q="SELECT * FROM chat WHERE (sender_id='%s' AND receiver_id='%s') OR (sender_id='%s' AND receiver_id=('%s')) order by chat_id"%(uid,did,did,uid)
     # q="select * from chats where senderid='%s' and receiverid=( select login_id from doctors where doctor_id='%s' )"%(uid,did)
     print(q)
     res=select(q)
     data['ress']=res
-    return render_template('player_chat.html',data=data)
+    return render_template('player_chat.html',data=data,uid=uid)

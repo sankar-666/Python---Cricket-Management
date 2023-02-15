@@ -1,0 +1,71 @@
+{% include 'adminheader.html' %}
+<center>
+    <div class="img-div">
+   
+    
+    <h1 class="hd">Add Final Result</h1>
+    <form action="" method="post" class="form" style="width: 500px;margin: 100px auto 10px auto;">
+        <table class="table form-group" style="color: white;">
+
+            <tr>
+                <th>{{ t1 }} Score</th>
+                <td><input type="number" class="form-control" required name="fscore" id=""></td>
+            </tr>
+            <tr>
+                <th>{{ t1 }} Wickets</th>
+                <td><input type="number" class="form-control" required name="fwicket" id=""></td>
+            </tr>
+            <tr>
+                <th>First Team Over Batted</th>
+                <td><select name="fteam_batted" class="form-control" id="">
+                    <option value="{{ t1 }}">{{ t1 }}</option>
+                    <option value="{{ t2 }}">{{ t2 }}</option>
+                </select></td>
+            </tr>
+            <tr>
+                <th>{{ t2 }} Score</th>
+                <td><input type="number" class="form-control" required name="sscore" id=""></td>
+            </tr>
+            <tr>
+                <th>{{ t2 }} Wickets</th>
+                <td><input type="number" class="form-control" required name="swicket" id=""></td>
+            </tr>
+            <tr>
+                <th>Second Team Over Batted</th>
+                <td><select name="steam_batted" class="form-control" id="">
+                    <option value="{{ t2 }}">{{ t2 }}</option>
+                    <option value="{{ t1 }}">{{ t1 }}</option>
+                </select></td>
+            </tr>
+
+            <tr>
+                <th>Winning Team</th>
+                <td><select name="winning_team" class="form-control" id="">
+                    <option value="{{ t2 }}">{{ t2 }}</option>
+                    <option value="{{ t1 }}">{{ t1 }}</option>
+                </select></td>
+            </tr>
+
+            <tr>
+                <th>Man of the match</th>
+                <td>
+                    <select name="man" required class="form-control" id="">
+                        {% for row in data['player'] %}
+                            <option value="{{ row['player_id'] }}">{{ row['fname'] }}{{ row['lname'] }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+           
+            
+            <tr>
+               
+                <td colspan="2" align="center"><input type="submit" class="btn btn-success" name="btn" id=""></td>
+            </tr>
+            </table>
+            </form>
+
+
+</div>
+    
+{% include 'footer.html' %}

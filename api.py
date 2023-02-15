@@ -253,3 +253,32 @@ def viewextras():
         data['status']='failed'
     data['method']='viewextras' 
     return str(data)
+
+@api.route('/viewfinalscore')
+def viewfinalscore():
+    data={}
+    # mid=request.args['mid']
+    q="SELECT * from match_summary inner join team on match_summary.winner_team_id = team.team_id"
+    # print(q)
+    res=select(q)
+
+    fscore = res[0]['first_team_score']
+    sscore = res[0]['second_team_score']
+    score=0
+    wicket=0
+    if fscore > sscore:
+        score=fscore
+        wicket=res[0]['first_team_wicket']
+    else:
+        score=sscore
+        wicket=res[0]['second_team_wicket']
+ 
+    if res:
+        data['status']='success'
+        data['data']=res
+        data['score']=score
+        data['wicket']=wicket
+    else:
+        data['status']='failed'
+    data['method']='viewfinalscore' 
+    return str(data)

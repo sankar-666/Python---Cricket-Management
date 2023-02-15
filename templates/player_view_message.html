@@ -10,7 +10,7 @@
         {% for row in data['res'] %}
         <tr>
             <td>{{row['fname']}} {{row['lname']}}</td>
-            <td><a href="plyer_chat?did={{row['login_id']}}">Click to view</a></td>
+            <td><a href="player_chat?did={{row['login_id']}}">Click to view</a></td>
         </tr>
         {% endfor %}
     </table>
